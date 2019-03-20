@@ -1,4 +1,4 @@
-module Main exposing (..)
+module Main exposing (main)
 
 import Browser
 import Browser.Events exposing (onAnimationFrame)
@@ -124,7 +124,7 @@ main =
 
 
 subscriptions : Model -> Sub Msg
-subscriptions { isRunning, time } =
+subscriptions { isRunning } =
     if isRunning then
         onAnimationFrame AnimationFrame
 
