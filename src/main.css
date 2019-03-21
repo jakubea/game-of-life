@@ -10,10 +10,16 @@
 }
 
 body {
-  font-family: 'Source Sans Pro', 'Trebuchet MS', 'Lucida Grande', 'Bitstream Vera Sans', 'Helvetica Neue', sans-serif;
+  background-color: rgba(0, 0, 0, 0.03);
+  font-family: "Source Code Pro", "Roboto Mono", "Consolas", "Courier Prime",
+    "Courier", monospace;
+
   margin: 0;
-  text-align: center;
-  color: #293c4b;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100%;
+  flex-direction: column;
 }
 
 h1 {
@@ -23,4 +29,10 @@ h1 {
 img {
   margin: 20px 0;
   max-width: 200px;
+}
+
+elm-canvas {
+  display: block;
+  background-color: white;
+  box-shadow: 0 0 200px rgba(0, 0, 0, 0.07);
 }
