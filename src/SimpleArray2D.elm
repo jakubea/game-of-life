@@ -1,5 +1,5 @@
-module SingleArray2D exposing
-    ( SingleArray2D
+module SimpleArray2D exposing
+    ( SimpleArray2D
     , get
     , getWithDefault
     , indexedFoldl
@@ -10,16 +10,16 @@ module SingleArray2D exposing
 import Array exposing (Array)
 
 
-type SingleArray2D t
-    = SingleArray2DInstance Int (Array t)
+type SimpleArray2D t
+    = SimpleArray2DInstance Int (Array t)
 
 
 
 -- Basic Functions --
 
 
-indexedFoldl : (( Int, Int ) -> a -> b -> b) -> b -> SingleArray2D a -> b
-indexedFoldl func baseCase (SingleArray2DInstance numColumns array1d) =
+indexedFoldl : (( Int, Int ) -> a -> b -> b) -> b -> SimpleArray2D a -> b
+indexedFoldl func baseCase (SimpleArray2DInstance numColumns array1d) =
     let
         func1d item ( index, aggregate ) =
             ( index + 1
@@ -32,8 +32,8 @@ indexedFoldl func baseCase (SingleArray2DInstance numColumns array1d) =
     finalAggregate
 
 
-repeat : Int -> Int -> a -> SingleArray2D a
-repeat numColumns numRows e =
+repeat : Int -> Int -> a -> SimpleArray2D a
+repeat numColumns numRows initialElement =
     let
         columns =
             max 1 numColumns
@@ -42,22 +42,22 @@ repeat numColumns numRows e =
             max 1 numRows
 
         array =
-            Array.repeat (columns * rows) e
+            Array.repeat (columns * rows) initialElement
     in
-    SingleArray2DInstance numColumns array
+    SimpleArray2DInstance numColumns array
 
 
-set : ( Int, Int ) -> a -> SingleArray2D a -> SingleArray2D a
-set coord newValue (SingleArray2DInstance numColumns array1d) =
+set : ( Int, Int ) -> a -> SimpleArray2D a -> SimpleArray2D a
+set coord newValue (SimpleArray2DInstance numColumns array1d) =
     let
         newArray1d =
             Array.set (columnRowToIndex numColumns coord) newValue array1d
     in
-    SingleArray2DInstance numColumns newArray1d
+    SimpleArray2DInstance numColumns newArray1d
 
 
-get : ( Int, Int ) -> SingleArray2D a -> Maybe a
-get coord (SingleArray2DInstance numColumns array1d) =
+get : ( Int, Int ) -> SimpleArray2D a -> Maybe a
+get coord (SimpleArray2DInstance numColumns array1d) =
     Array.get (columnRowToIndex numColumns coord) array1d
 
 
@@ -65,7 +65,7 @@ get coord (SingleArray2DInstance numColumns array1d) =
 -- Higher Functions --
 
 
-getWithDefault : a -> ( Int, Int ) -> SingleArray2D a -> a
+getWithDefault : a -> ( Int, Int ) -> SimpleArray2D a -> a
 getWithDefault default coord array2d =
     get coord array2d
         |> Maybe.withDefault default
